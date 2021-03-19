@@ -17,18 +17,19 @@ cache: false
 env:
   global:
     - SEGFAULT_SIGNALS=all
-    - |
-       if [[ "$TRAVIS_CPU_ARCH" = "amd64" ]]; then
-        LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-       fi
-    - |
-       if [[ "$TRAVIS_CPU_ARCH" = "ppc64le" ]]; then
-        LD_PRELOAD=/lib/powerpc64le-linux-gnu/ld-2.31.so
-       fi
+#    - |
+#       if [[ "$TRAVIS_CPU_ARCH" = "amd64" ]]; then
+#        LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+#       fi
+#    - |
+#       if [[ "$TRAVIS_CPU_ARCH" = "ppc64le" ]]; then
+#        LD_PRELOAD=/lib/powerpc64le-linux-gnu/ld-2.31.so
+#       fi
      
 matrix:
   include:
     - env:
+        - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
         - TOXENV=py27,codecov
       python: '2.7'
       arch: amd64
@@ -59,6 +60,7 @@ matrix:
 #      arch: amd64
       
     - env:
+        - LD_PRELOAD=/lib/powerpc64le-linux-gnu/ld-2.31.so
         - TOXENV=py27,codecov
       python: '2.7'
       arch: ppc64le
